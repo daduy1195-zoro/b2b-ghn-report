@@ -1,0 +1,22 @@
+name: GHN B2B Auto Report
+
+on:
+  schedule:
+    # 09:05, 13:05, 15:05 UTC+7 = 02:05, 06:05, 08:05 UTC
+    - cron: '5 2,6,8 * * *'
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Run GHN Report
+        run: python ghn_report.py
